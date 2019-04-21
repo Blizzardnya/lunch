@@ -12,18 +12,20 @@ from .serializers import CategorySerializer, ProductSerializer
 
 class CategoriesAPIView(APIView):
     """Категории"""
+    permission_classes = [permissions.AllowAny, ]
 
     def get(self, request):
         categories = Category.objects.filter(available=True)
         serializer = CategorySerializer(categories, many=True)
-        return Response({'data': serializer.data})
+        return Response({'categories': serializer.data})
 
 
 class ProductsAPIView(APIView):
     """Продукты"""
+    permission_classes = [permissions.AllowAny, ]
 
     def get(self, request):
         category = request.GET.get('category')
         products = Product.objects.filter(Q(category=category) & Q(available=True))
         serializer = ProductSerializer(products, many=True)
-        return Response({'data': serializer.data})
+        return Response({'products': serializer.data})
