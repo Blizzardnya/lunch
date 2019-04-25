@@ -1,13 +1,27 @@
 from django.db import models
 from cafe.models import Product
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 
 class Order(models.Model):
     """Модель заказа"""
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    customer = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    created = models.DateTimeField("Дата создания", auto_now_add=True)
+    updated = models.DateTimeField("Дата обновления", auto_now=True)
+
+    NEW = 'N'
+    IN_PROCESS = 'P'
+    COMPLETE = 'C'
+
+    ORDER_STATUS = (
+        (NEW, 'New'),
+        (IN_PROCESS, 'In process'),
+        (COMPLETE, 'Complete'),
+    )
+
+    status = models.CharField('Статус', max_length=1, choices=ORDER_STATUS, default=NEW)
 
     class Meta:
         ordering = ('-created', )
@@ -20,10 +34,10 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     """Модель строк заказа"""
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, related_name='order_item', on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    quantity = models.PositiveIntegerField(default=1)
+    order = models.ForeignKey(Order, verbose_name='Заказ', related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name='Продукт', related_name='order_item', on_delete=models.CASCADE)
+    price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField('Количество', default=1)
 
     class Meta:
         verbose_name = 'Строка заказа'

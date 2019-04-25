@@ -18,3 +18,12 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'name', 'description', 'price', 'category')
+
+
+class ProductLessSerializer(serializers.ModelSerializer):
+    """Сериализация продуктов без цены и описания (для заказов)"""
+    category = CategorySerializer()
+
+    class Meta:
+        model = Product
+        fields = ('id', 'name',  'category')
