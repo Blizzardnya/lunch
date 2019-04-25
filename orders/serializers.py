@@ -10,17 +10,17 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', )
+        fields = ('username', 'first_name')
 
 
 class OrderSerializer(serializers.ModelSerializer):
     """Сериальзация заказов"""
-    customer = UserSerializer()
+    # customer = UserSerializer()
     order_items = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
-        fields = ('id', 'customer', 'created', 'updated', 'get_total_cost', 'status', 'order_items')
+        fields = ('id', 'created', 'updated', 'get_total_cost', 'status', 'order_items')
 
     def get_order_items(self, instance):
         order_items = instance.items.all()
