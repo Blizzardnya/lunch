@@ -31,6 +31,9 @@ class Order(models.Model):
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
 
+    def __str__(self):
+        return 'Order {}'.format(self.id)
+
 
 class OrderItem(models.Model):
     """Модель строк заказа"""
