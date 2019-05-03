@@ -142,6 +142,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 try:
     from .local_settings import *
-except ImportError:
+except (ImportError, ModuleNotFoundError):
     from .prod_settings import *
 
