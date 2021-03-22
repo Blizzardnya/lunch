@@ -15,6 +15,10 @@ DATABASES = {
 
 DATABASES['default'].update(db_from_env)
 
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'https://lunch-front-dev.herokuapp.com'
+]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
