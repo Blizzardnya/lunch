@@ -4,7 +4,7 @@ from .models import Product, Category
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    """Сериальзация категорий"""
+    """Сериализация категорий"""
 
     class Meta:
         model = Category

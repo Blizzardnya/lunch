@@ -1,8 +1,8 @@
-from rest_framework import serializers
 from django.contrib.auth.models import User
+from rest_framework import serializers
 
-from .models import Order, OrderItem
 from cafe.serializers import ProductLessSerializer
+from .models import Order, OrderItem
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    """Сериальзация заказов"""
+    """Сериализация заказов"""
     # customer = UserSerializer()
     order_items = serializers.SerializerMethodField()
 

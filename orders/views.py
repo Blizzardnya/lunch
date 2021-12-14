@@ -1,17 +1,13 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import permissions
-from rest_framework.parsers import JSONParser
 from rest_framework.generics import get_object_or_404
+from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from .models import Order, OrderItem
 from cafe.models import Product
-from .serializers import OrderSerializer, OrderItemSerializer
-
-# Create your views here.
+from .models import Order, OrderItem
+from .serializers import OrderSerializer
 
 
 class OrderAPIView(APIView):
